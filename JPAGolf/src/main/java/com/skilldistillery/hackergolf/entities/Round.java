@@ -1,8 +1,10 @@
 package com.skilldistillery.hackergolf.entities;
 
+import java.sql.Time;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,6 +19,15 @@ public class Round {
 	private int id;
 	
 	private LocalDateTime date;
+	
+	private Time start;
+	
+	private Time end;
+	
+	private String notes;
+	
+	@Column(name="holes_played")
+	private int holesPlayed;
 
 	@Override
 	public int hashCode() {
@@ -39,6 +50,46 @@ public class Round {
 	public void setDate(LocalDateTime date) {
 		this.date = date;
 	}
+
+	public Time getStart() {
+		return start;
+	}
+
+
+	public void setStart(Time start) {
+		this.start = start;
+	}
+
+
+	public Time getEnd() {
+		return end;
+	}
+
+
+	public void setEnd(Time end) {
+		this.end = end;
+	}
+
+
+	public String getNotes() {
+		return notes;
+	}
+
+
+	public void setNotes(String notes) {
+		this.notes = notes;
+	}
+
+
+	public int getHolesPlayed() {
+		return holesPlayed;
+	}
+
+
+	public void setHolesPlayed(int holesPlayed) {
+		this.holesPlayed = holesPlayed;
+	}
+
 
 	public Round() {
 		super();

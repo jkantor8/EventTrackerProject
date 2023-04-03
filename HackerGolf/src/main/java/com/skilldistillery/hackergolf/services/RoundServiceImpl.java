@@ -40,7 +40,11 @@ public class RoundServiceImpl implements RoundService {
 		if (roundRepo.existsById(roundId)) {
 			
 			updatedRound.setDate(round.getDate());
-			//MORE FIELDS NEED TO BE ADDED 
+			updatedRound.setStart(round.getStart());
+			updatedRound.setEnd(round.getEnd());
+			updatedRound.setNotes(round.getNotes());
+			updatedRound.setHolesPlayed(round.getHolesPlayed());
+		
 			
 			roundRepo.saveAndFlush(updatedRound);
 		}
