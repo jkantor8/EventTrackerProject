@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Hacker Golf</title>
+<script type="text/javascript" src="js/script.js"></script>
+</head>
+<body>
+<h1>Welcome to Hacker Golf!</h1>
+
+<div id="roundListDiv">
+<h2>Rounds</h2>
+<table>
+<thead><tr>
+<th>ID</th>
+<th>Date Played</th>
+<th>Start</th>
+<th>End</th>
+<th>Notes</th>
+<th>Holes Played</th>
+<th>Actions</th>
+</tr>
+</thead>
+<tbody id="roundListTbody"></tbody>
+</table>
+</div>
+
+<div id="newRoundFormDiv">
+<h2>Add a New Round</h2>
+<form id="newRoundForm">
+  <label for="datePlayed">Date Played:</label>
+  <input type="date" id="datePlayed" name="datePlayed">
+  <br>
+  <label for="start">Start:</label>
+  <input type="time" id="start" name="start">
+  <br>
+  <label for="end">End:</label>
+  <input type="time" id="end" name="end">
+  <br>
+  <label for="notes">Notes:</label>
+  <input type="text" id="notes" name="notes">
+  <br>
+  <label for="holesPlayed">Holes Played:</label>
+  <input type="number" id="holesPlayed" name="holesPlayed" min="1" max="18">
+  <br>
+  <button type="submit">Add Round</button>
+</form>
+</div>
+
+</body>
+</html>
