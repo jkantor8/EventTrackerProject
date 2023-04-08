@@ -1,7 +1,8 @@
 package com.skilldistillery.hackergolf.entities;
 
 import java.sql.Time;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -18,11 +19,11 @@ public class Round {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	private LocalDateTime date;
+	private LocalDate date;
 	
-	private Time start;
+	private LocalTime start;
 	
-	private Time end;
+	private LocalTime end;
 	
 	private String notes;
 	
@@ -43,30 +44,30 @@ public class Round {
 		this.id = id;
 	}
 
-	public LocalDateTime getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
 
-	public void setDate(LocalDateTime date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
 
-	public Time getStart() {
+	public LocalTime getStart() {
 		return start;
 	}
 
 
-	public void setStart(Time start) {
+	public void setStart(LocalTime start) {
 		this.start = start;
 	}
 
 
-	public Time getEnd() {
+	public LocalTime getEnd() {
 		return end;
 	}
 
 
-	public void setEnd(Time end) {
+	public void setEnd(LocalTime end) {
 		this.end = end;
 	}
 
