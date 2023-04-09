@@ -17,6 +17,24 @@ function init() {
 		createRound(newRound);
 	});
 	
+	// Listener for Update
+  document.getElementById('updateRoundBtn').addEventListener('click', function(event) {
+    event.preventDefault();
+    let roundId = document.getElementById('updateRoundId').value;
+    let updatedRound = {
+      id: parseInt(roundId),
+      date: document.getElementById('updateDatePlayed').value,
+      start: document.getElementById('updateStart').value,
+      end: document.getElementById('updateEnd').value,
+      notes: document.getElementById('updateNotes').value,
+      holesPlayed: parseInt(document.getElementById('updateHolesPlayed').value, 10)
+    };
+    updateRound(updatedRound);
+
+  });
+	
+	addActionListeners();
+	
 }
 
 function loadAllRounds() {
@@ -56,7 +74,22 @@ function displayRoundList(rounds) {
         tr.appendChild(td);
       }
     }
-  }
+    
+    let actionsTd = document.createElement('td');
+    let updateBtn = document.createElement('button');
+    updateBtn.textContent = 'Update';
+    updateBtn.setAttribute('data-round-id', round.id);
+    updateBtn.setAttribute('data-round-action', 'update');
+    actionsTd.appendChild(updateBtn);
+    
+    let deleteBtn = document.createElement('button');
+    deleteBtn.textContent = 'Delete';
+    deleteBtn.setAttribute('data-round-id', round.id);
+    deleteBtn.setAttribute('data-round-action', 'delete');
+    actionsTd.appendChild(deleteBtn);
+    
+    tr.appendChild(actionsTd);
+      }
 }
 
 function getNewRoundFromForm() {
@@ -94,3 +127,67 @@ function createRound(newRound) {
 		 };
 	 xhr.send(JSON.stringify(newRound));
 }
+
+
+function addActionListeners() {
+	let tbody = document.getElementById('roundListTbody');
+	tbody.addEventListener('click', function(e) {
+		let target = e.target;
+		let roundId = target.getAttribute('data-round-id');
+		let action = target.getAttribute('data-round-action');
+		
+		if (roundId && action === 'update') {
+			
+			editRound(roundId);
+		} else if (roundId && action === 'delete') {
+			deleteRound(roundId);
+		}
+	});
+}
+
+function editRound(roundId) {
+  let xhr = new XMLHttpRequest();
+  xhr.open('GET', `api/rounds/${roundId}`);
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4) {
+      if (xhr.status === 200) {
+        let round = JSON.parse(xhr.responseText);
+        document.getElementById('updateRoundId').value = round.id;
+        document.getElementById('updateDatePlayed').value = round.date;
+        document.getElementById('updateStart').value = round.start;
+        document.getElementById('updateEnd').value = round.end;
+        document.getElementById('updateNotes').value = round.notes;
+        document.getElementById('updateHolesPlayed').value = round.holesPlayed;
+        document.getElementById('updateRoundFormDiv').style.display = 'block';
+      } else {
+        console.error('Error fetching round: ' + xhr.status);
+      }
+    }
+  };
+  xhr.send();
+}
+
+function updateRound(round) {
+	  console.log('Updating round:', round); // Add this line to log the round object
+
+	
+  let xhr = new XMLHttpRequest();
+  xhr.open('PUT', `api/rounds/${round.id}`);
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4) {
+      if (xhr.status === 200) {
+        loadAllRounds();
+        document.getElementById('updateRoundFormDiv').style.display = 'none';
+      } else {
+        console.error('Error updating round: ' + xhr.status);
+      }
+    }
+  };
+    console.log('Sending request:', JSON.stringify(round)); 
+
+  xhr.send(JSON.stringify(round));
+    console.log('Request sent'); 
+
+}
+
