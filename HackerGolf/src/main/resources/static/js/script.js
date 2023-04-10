@@ -191,3 +191,18 @@ function updateRound(round) {
 
 }
 
+function deleteRound(roundId) {
+	let xhr = new XMLHttpRequest();
+	xhr.open('DELETE', `api/rounds/${roundId}`);
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState === 4) {
+			if (xhr.status === 200 || xhr.status === 204) {
+				loadAllRounds();
+				} else {
+					console.error('Error deleting round: ' + xhr.status);
+				}
+		}
+	};
+	xhr.send();
+}
+
