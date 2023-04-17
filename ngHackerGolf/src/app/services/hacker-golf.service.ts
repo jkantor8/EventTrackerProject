@@ -28,6 +28,20 @@ export class HackerGolfService {
     );
   }
 
+
+
+  delete(roundId: number): Observable<void> {
+    return this.http.delete<void>(`${this.url}/${roundId}`).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error('RoundService.delete(): error deleting round: ' + err)
+        );
+      })
+    );
+  }
+
+
   create(round: Rounds): Observable<Rounds> {
     return this.http.post<Rounds>(this.url, round).pipe(
       catchError((err: any) => {
@@ -49,16 +63,4 @@ export class HackerGolfService {
       })
     );
   }
-
-  delete(roundId: number): Observable<void> {
-    return this.http.delete<void>(`${this.url}/${roundId}`).pipe(
-      catchError((err: any) => {
-        console.log(err);
-        return throwError(
-          () => new Error('RoundService.delete(): error deleting round: ' + err)
-        );
-      })
-    );
-  }
-
 }
