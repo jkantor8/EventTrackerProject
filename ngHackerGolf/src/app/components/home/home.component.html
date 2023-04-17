@@ -1,5 +1,53 @@
 <h1>GOLF!!!</h1>
 
+<!-- Create Form -->
+<form (ngSubmit)="createRound()" #createForm="ngForm">
+  <label for="date">Date:</label>
+  <input type="date" id="date" name="date" [(ngModel)]="newRound.date" required />
+
+  <label for="start">Start:</label>
+  <input type="text" id="start" name="start" [(ngModel)]="newRound.start" required />
+
+  <label for="end">End:</label>
+  <input type="text" id="end" name="end" [(ngModel)]="newRound.end" required />
+
+  <label for="notes">Notes:</label>
+  <input type="text" id="notes" name="notes" [(ngModel)]="newRound.notes" required />
+
+  <label for="holesPlayed">Holes Played:</label>
+  <input type="number" id="holesPlayed" name="holesPlayed" [(ngModel)]="newRound.holesPlayed" required />
+
+  <button type="submit" [disabled]="!createForm.valid">Add Round</button>
+</form>
+
+<!-- Rounds list -->
 <ul>
-  <li *ngFor="let round of rounds">{{round.id}} {{round.date}}</li>
+  <li *ngFor="let round of rounds">
+    {{ round.id }} {{ round.date }}
+    <button (click)="deleteRound(round.id)">Delete</button>
+    <button (click)="editRound(round)">Edit</button>
+  </li>
 </ul>
+
+<!-- Edit Form -->
+<div *ngIf="selectedRound">
+  <form (ngSubmit)="updateRound()" #editForm="ngForm">
+    <label for="editDate">Date:</label>
+    <input type="date" id="editDate" name="editDate" [(ngModel)]="selectedRound.date" required />
+
+    <label for="editStart">Start:</label>
+    <input type="text" id="editStart" name="editStart" [(ngModel)]="selectedRound.start" required />
+
+    <label for="editEnd">End:</label>
+    <input type="text" id="editEnd" name="editEnd" [(ngModel)]="selectedRound.end" required />
+
+    <label for="editNotes">Notes:</label>
+    <input type="text" id="editNotes" name="editNotes" [(ngModel)]="selectedRound.notes" required />
+
+    <label for="editHolesPlayed">Holes Played:</label>
+    <input type="number" id="editHolesPlayed" name="editHolesPlayed" [(ngModel)]="selectedRound.holesPlayed" required />
+
+    <button type="submit" [disabled]="!editForm.valid">Save Changes</button>
+  </form>
+</div>
+
